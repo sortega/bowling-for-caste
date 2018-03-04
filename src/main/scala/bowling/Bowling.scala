@@ -11,14 +11,15 @@ object Bowling {
 
   def scoreForRow(rolls: List[Roll]): Score = {
     @tailrec
-    def go(rolls: List[Roll], score: Int = 0): Score = rolls match {
+    def go(rolls: List[Roll], frame: Int = 1, score: Score = 0): Score = rolls match {
+      case _ if frame == NumFrames =>
+        score + rolls.sum
       case NumPins :: rest =>
-        go(rest, score + NumPins + rest.take(2).sum)
+        go(rest, frame + 1, score + NumPins + rest.take(2).sum)
       case first :: second :: rest if first + second == NumPins =>
-        go(rest, score + NumPins + rest.head)
+        go(rest, frame + 1, score + NumPins + rest.head)
       case first :: second :: rest =>
-        go(rest, score + first + second)
-      case _ => score
+        go(rest, frame + 1, score + first + second)
     }
     go(rolls)
   }
