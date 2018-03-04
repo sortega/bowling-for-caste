@@ -9,6 +9,8 @@ object Bowling {
   def scoreForRow(rolls: List[Roll]): Score = {
     @tailrec
     def go(rolls: List[Roll], score: Int = 0): Score = rolls match {
+      case first :: second :: rest if first + second == 10 =>
+        go(rest, score + 10 + rest.head)
       case first :: second :: rest => go(rest, score + first + second)
       case _                       => score
     }
