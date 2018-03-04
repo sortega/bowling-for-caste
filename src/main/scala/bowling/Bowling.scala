@@ -1,0 +1,3 @@
+package bowling
+
+object Bowling {}
