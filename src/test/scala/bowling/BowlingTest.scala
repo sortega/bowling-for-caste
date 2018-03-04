@@ -15,5 +15,6 @@ class BowlingTest extends FlatSpec with Matchers {
 
   "A game without strikes" should "count twice the pins hit down after a spare" in {
     Bowling.scoreForRow(5 :: 5 :: List.fill(18)(1)) shouldBe 10 + 18 + 1
+    Bowling.scoreForRow(2 :: 2 :: 9 :: 1 :: List.fill(16)(2)) shouldBe 10 + 18 * 2 + 2
   }
 }
