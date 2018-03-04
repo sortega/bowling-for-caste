@@ -1,3 +1,6 @@
 package bowling
 
-object Bowling {}
+object Bowling {
+
+  def scoreForRow(rolls: List[Int]): Int = 0
+}
