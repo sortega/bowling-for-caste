@@ -39,4 +39,8 @@ class BowlingTest extends FlatSpec with Matchers {
   it should "have two extra rolls if the tenth frame is a strike" in {
     Bowling.scoreForRow(frame(1, 2) * 9 ++ frame(10, 5, 5)) shouldBe 3 * 9 + 20
   }
+
+  "The perfect game" should "be scored correctly" in {
+    Bowling.scoreForRow(frame(10) * 9 ++ frame(10, 10, 10)) shouldBe 30 * 10
+  }
 }
