@@ -28,6 +28,10 @@ class BowlingTest extends FlatSpec with Matchers {
     Bowling.scoreForRow(frame(2, 2) ++ frame(9, 1) ++ frame(2, 2) * 8) shouldBe 10 + 9 * 4 + 2
   }
 
+  it should "have an extra roll if the tenth frame is a spare" in {
+    Bowling.scoreForRow(frame(1, 2) * 9 ++ frame(5, 5, 5)) shouldBe 3 * 9 + 15
+  }
+
   "A game" should "count twice the two rolls after a strike" in {
     Bowling.scoreForRow(strike ++ frame(1, 1) * 9) shouldBe 10 + 18 + 2
   }
