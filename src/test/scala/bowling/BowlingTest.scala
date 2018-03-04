@@ -35,4 +35,8 @@ class BowlingTest extends FlatSpec with Matchers {
   "A game" should "count twice the two rolls after a strike" in {
     Bowling.scoreForRow(strike ++ frame(1, 1) * 9) shouldBe 10 + 18 + 2
   }
+
+  it should "have two extra rolls if the tenth frame is a strike" in {
+    Bowling.scoreForRow(frame(1, 2) * 9 ++ frame(10, 5, 5)) shouldBe 3 * 9 + 20
+  }
 }
