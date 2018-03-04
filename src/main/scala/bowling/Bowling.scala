@@ -4,5 +4,5 @@ object Bowling {
   type Roll = Int
   type Score = Int
 
-  def scoreForRow(rolls: List[Roll]): Score = rolls.head + rolls(1)
+  def scoreForRow(rolls: List[Roll]): Score = rolls.sum
 }
