@@ -11,16 +11,24 @@ object Bowling {
 
   def scoreForRow(rolls: List[Roll]): Score = {
     @tailrec
-    def go(rolls: List[Roll], frame: Int = 1, score: Score = 0): Score = rolls match {
-      case _ if frame == NumFrames =>
-        score + rolls.sum
-      case NumPins :: rest =>
-        go(rest, frame + 1, score + NumPins + rest.take(2).sum)
-      case first :: second :: rest if first + second == NumPins =>
-        go(rest, frame + 1, score + NumPins + rest.head)
-      case first :: second :: rest =>
-        go(rest, frame + 1, score + first + second)
-    }
+    def go(rolls: List[Roll], frame: Int = 1, score: Score = 0): Score =
+      if (frame == NumFrames) score + rolls.sum
+      else {
+        val (frameScore, rest) = (matchStrike orElse matchSpare orElse matchSplit).apply(rolls)
+        go(rest, frame + 1, score + frameScore)
+      }
     go(rolls)
+  }
+
+  private val matchStrike: PartialFunction[List[Roll], (Score, List[Roll])] = {
+    case NumPins :: rest => (NumPins + rest.take(2).sum, rest)
+  }
+
+  private val matchSpare: PartialFunction[List[Roll], (Score, List[Roll])] = {
+    case first :: second :: rest if first + second == NumPins => (NumPins + rest.head, rest)
+  }
+
+  private val matchSplit: PartialFunction[List[Roll], (Score, List[Roll])] = {
+    case first :: second :: rest => (first + second, rest)
   }
 }
