@@ -10,5 +10,6 @@ class BowlingTest extends FlatSpec with Matchers {
 
   "A game without spares nor strikes" should "score all pins hit down" in {
     Bowling.scoreForRow(1 :: 2 :: List.fill(18)(0)) shouldBe 3
+    Bowling.scoreForRow(List.fill(10)(List(4, 2)).flatten) shouldBe 6 * 10
   }
 }
